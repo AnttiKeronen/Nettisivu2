@@ -1,4 +1,3 @@
-// Use the correct table ID "mustalista"
 const table = document
   .getElementById("mustalista")
   .getElementsByTagName("tbody")[0];
@@ -6,9 +5,8 @@ const table = document
 const form = document.getElementById("user-form");
 const emptyTableButton = document.getElementById("empty-table");
 
-// Add new user or update existing user
 form.addEventListener("submit", function (event) {
-  event.preventDefault(); // Prevent form from refreshing the page
+  event.preventDefault();
 
   const username = document.getElementById("input-username").value;
   const email = document.getElementById("input-email").value;
@@ -16,7 +14,6 @@ form.addEventListener("submit", function (event) {
   const adminText = isAdmin ? "X" : "-";
   const imageFile = document.getElementById("input-image").files[0];
 
-  // Check if the username already exists
   let userExists = false;
   let existingRow;
   Array.from(table.rows).forEach((row) => {
@@ -27,7 +24,6 @@ form.addEventListener("submit", function (event) {
   });
 
   if (userExists) {
-    // Update existing row
     existingRow.cells[1].innerText = email;
     existingRow.cells[2].innerText = adminText;
     if (imageFile) {
@@ -35,7 +31,6 @@ form.addEventListener("submit", function (event) {
       existingRow.cells[3].innerHTML = `<img src="${imageUrl}" width="64" height="64" alt="User Image">`;
     }
   } else {
-    // Create a new row
     const newRow = table.insertRow();
     const usernameCell = newRow.insertCell(0);
     const emailCell = newRow.insertCell(1);
@@ -54,11 +49,9 @@ form.addEventListener("submit", function (event) {
     }
   }
 
-  // Clear the form fields
   form.reset();
 });
 
-// Empty table when the button is clicked
 emptyTableButton.addEventListener("click", function () {
   table.innerHTML = "";
 });
